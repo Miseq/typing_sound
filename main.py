@@ -1,19 +1,19 @@
 from pynput import keyboard
+import simpleaudio as sa
+
+
+
 
 def on_press(key):
     try:
-        print(f'pressed key {key}')
+        if key.char >= 'a' and key.char <= 'z' and not wf.play().is_playing():
+            wf.play()
     except AttributeError:
-        print('Attribute Error')
-
+        pass
 def on_release(key):
-    try:
-        print('klick')
-    except AttributeError:
-        print('Attribute Error on realese')
+    pass
 
-
-with keyboard.Listener(
-        on_press=on_press,
-        on_release=on_release) as listener:
+filename = "test.wav"
+wf = sa.WaveObject.from_wave_file(filename)
+with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
